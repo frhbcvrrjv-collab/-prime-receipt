@@ -1,151 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>PRIME Car Wash Receipt</title>
+<title>PRIME Receipt</title>
 
 <style>
-  * {
-    box-sizing: border-box;
-  }
+* { box-sizing: border-box; }
 
-  body {
+body {
     margin: 0;
-    background: #fff;
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .receipt {
-    width: 80mm;
-    min-height: 200mm;
-    margin: 0 auto;
-    padding: 5mm 6mm;
     background: white;
-  }
+    font-family: Arial, sans-serif;
+    color: black;
+}
 
-  .logo {
+.receipt {
+    width: 80mm;
+    margin: auto;
+    padding: 5mm 6mm;
+}
+
+.logo {
     text-align: center;
     margin-bottom: 8mm;
-  }
+}
 
-  .prime {
-    font-size: 15mm;
-    line-height: 0.9;
-    font-weight: 700;
+.logo-main {
+    font-size: 13mm;
+    font-weight: bold;
     letter-spacing: 1px;
-  }
+}
 
-  .car-wash {
-    margin-top: 3mm;
-    font-size: 4mm;
-    letter-spacing: 0.5px;
-  }
+.logo-sub {
+    font-size: 3.8mm;
+}
 
-  .meta {
-    font-size: 3.5mm;
+.info {
+    font-size: 3.6mm;
     line-height: 1.5;
-  }
+}
 
-  hr {
+hr {
     border: 0;
-    border-top: 0.3mm solid #000;
+    border-top: 0.3mm solid black;
     margin: 5mm 0;
-  }
+}
 
-  .label {
+.label {
+    font-weight: bold;
     font-size: 4mm;
-    font-weight: 700;
-    margin-bottom: 1mm;
-  }
+}
 
-  .value {
+.value {
     font-size: 4.5mm;
     margin-bottom: 3mm;
-  }
+}
 
-  .item {
+.item {
     display: flex;
     justify-content: space-between;
-    gap: 4mm;
+    gap: 3mm;
     font-size: 4.2mm;
     margin: 3mm 0;
-  }
+}
 
-  .item-name {
-    flex: 1;
-  }
-
-  .item-price {
+.item-price {
     white-space: nowrap;
-  }
+}
 
-  .total {
+.total {
     display: flex;
     justify-content: space-between;
+    font-weight: bold;
     font-size: 5.5mm;
-    font-weight: 700;
-    margin: 5mm 0;
-  }
+    margin-top: 5mm;
+}
 
-  .payment {
+.payment {
     font-size: 4.2mm;
-    margin-top: 6mm;
-  }
+    margin-top: 7mm;
+}
 
-  .pickup {
+.pickup {
     text-align: center;
-    font-weight: 700;
-    margin-top: 24mm;
+    font-weight: bold;
     font-size: 4.5mm;
     line-height: 1.5;
-  }
+    margin-top: 24mm;
+}
 
-  .arabic {
+.arabic {
     direction: rtl;
-    font-size: 4.5mm;
     margin-bottom: 3mm;
-  }
+}
 
-  .thanks {
+.thanks {
     text-align: center;
     margin-top: 18mm;
     font-size: 4mm;
-  }
+}
 
-  .print-button {
+button {
     width: 100%;
-    border: none;
-    background: #000;
-    color: #fff;
-    font-size: 4mm;
-    font-weight: 700;
-    padding: 4mm;
     margin-top: 10mm;
+    padding: 4mm;
+    border: none;
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 4mm;
     cursor: pointer;
-  }
+}
 
-  @media print {
+@media print {
+
     @page {
-      size: 80mm auto;
-      margin: 0;
+        size: 80mm auto;
+        margin: 0;
     }
 
     body {
-      width: 80mm;
+        width: 80mm;
     }
 
     .receipt {
-      margin: 0;
-      width: 80mm;
+        width: 80mm;
+        margin: 0;
     }
 
-    .print-button {
-      display: none !important;
+    button {
+        display: none;
     }
-  }
+}
 </style>
 </head>
 
@@ -153,122 +141,122 @@
 
 <div class="receipt">
 
-  <div class="logo">
-    <div class="prime">PRIME</div>
-    <div class="car-wash">— &nbsp; CAR WASH &nbsp; —</div>
-  </div>
-
-  <div class="meta">
-    <div>Receipt #: <span id="receipt"></span></div>
-    <div>
-      Date: <span id="date"></span>
-      &nbsp; Time: <span id="time"></span>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="label">CAR</div>
-  <div class="value" id="car"></div>
-
-  <div class="label">PLATE</div>
-  <div class="value" id="plate"></div>
-
-  <hr>
-
-  <div id="items"></div>
-
-  <hr>
-
-  <div class="total">
-    <span>TOTAL</span>
-    <span id="total"></span>
-  </div>
-
-  <div class="payment">
-    Payment: <span id="payment"></span>
-  </div>
-
-  <div class="pickup">
-    <div class="arabic">
-      يرجى إبراز هذا الإيصال عند استلام المفتاح
+    <div class="logo">
+        <div class="logo-main">PRIME</div>
+        <div class="logo-sub">— &nbsp; CAR WASH &nbsp; —</div>
     </div>
 
-    <div>
-      Please present this receipt to<br>
-      collect your key
+    <div class="info">
+        Receipt #: <span id="receipt"></span><br>
+        Date: <span id="date"></span>
+        &nbsp;
+        Time: <span id="time"></span>
     </div>
-  </div>
 
-  <div class="thanks">
-    Thank you for choosing <strong>PRIME</strong>
-  </div>
+    <hr>
 
-  <button class="print-button" onclick="window.print()">
-    PRINT RECEIPT
-  </button>
+    <div class="label">CAR</div>
+    <div class="value" id="car"></div>
+
+    <div class="label">PLATE</div>
+    <div class="value" id="plate"></div>
+
+    <hr>
+
+    <div id="items"></div>
+
+    <hr>
+
+    <div class="total">
+        <span>TOTAL</span>
+        <span><span id="total"></span> JOD</span>
+    </div>
+
+    <div class="payment">
+        Payment: <span id="payment"></span>
+    </div>
+
+    <div class="pickup">
+
+        <div class="arabic">
+            يرجى إبراز هذا الإيصال عند استلام المفتاح
+        </div>
+
+        <div>
+            Please present this receipt to<br>
+            collect your key
+        </div>
+
+    </div>
+
+    <div class="thanks">
+        Thank you for choosing <b>PRIME</b>
+    </div>
+
+    <button onclick="window.print()">PRINT RECEIPT</button>
 
 </div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
 
-  function get(name, fallback = "") {
-    return params.get(name) || fallback;
-  }
+const p = new URLSearchParams(window.location.search);
 
-  function safeText(id, value) {
-    document.getElementById(id).textContent = value;
-  }
+function value(name, fallback) {
+    return p.get(name) || fallback;
+}
 
-  safeText("receipt", get("receipt", "000000"));
-  safeText("date", get("date", ""));
-  safeText("time", get("time", ""));
-  safeText("car", get("car", ""));
-  safeText("plate", get("plate", ""));
-  safeText("payment", get("payment", ""));
-  
-  const total = get("total", "0.00");
-  safeText("total", total + " JOD");
+document.getElementById("receipt").textContent =
+    value("receipt", "000000");
 
-  const itemsContainer = document.getElementById("items");
+document.getElementById("date").textContent =
+    value("date", "");
 
-  /*
-    ITEMS FORMAT:
+document.getElementById("time").textContent =
+    value("time", "");
 
-    Wash Name|5.00;Air Freshener|1.00;Microfiber Cloth|2.00
-  */
+document.getElementById("car").textContent =
+    value("car", "");
 
-  const itemsString = get("items", "");
+document.getElementById("plate").textContent =
+    value("plate", "");
 
-  if (itemsString) {
-    const items = itemsString.split(";");
+document.getElementById("total").textContent =
+    value("total", "0.00");
 
-    items.forEach(item => {
-      const parts = item.split("|");
+document.getElementById("payment").textContent =
+    value("payment", "");
 
-      if (parts.length >= 2) {
-        const name = parts[0];
-        const price = parts[1];
+const itemsBox = document.getElementById("items");
+
+const items = p.get("items");
+
+if (items) {
+
+    items.split(";").forEach(function(item) {
+
+        const parts = item.split("|");
+
+        if (parts.length < 2) return;
 
         const row = document.createElement("div");
         row.className = "item";
 
-        const itemName = document.createElement("span");
-        itemName.className = "item-name";
-        itemName.textContent = name;
+        const name = document.createElement("span");
+        name.textContent = parts[0];
 
-        const itemPrice = document.createElement("span");
-        itemPrice.className = "item-price";
-        itemPrice.textContent = price + " JOD";
+        const price = document.createElement("span");
+        price.className = "item-price";
+        price.textContent = parts[1] + " JOD";
 
-        row.appendChild(itemName);
-        row.appendChild(itemPrice);
+        row.appendChild(name);
+        row.appendChild(price);
 
-        itemsContainer.appendChild(row);
-      }
+        itemsBox.appendChild(row);
+
     });
-  }
+
+}
+
 </script>
 
 </body>
