@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRIME Car Wash Receipt</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  body {
+    width: 80mm;
+    margin: 0 auto;
+  }
+
+  .receipt {
+    width: 80mm;
+    padding: 7mm 5mm 6mm 5mm;
+    background: white;
+  }
+
+  .logo {
+    text-align: center;
+    margin: 2mm 0 10mm;
+  }
+
+  .prime {
+    font-size: 13mm;
+    font-weight: 700;
+    letter-spacing: 0.8mm;
+    line-height: 1;
+  }
+
+  .carwash {
+    margin-top: 2mm;
+    font-size: 4.2mm;
+    letter-spacing: 0.2mm;
+  }
+
+  .logo-sub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3mm;
+  }
+
+  .logo-line {
+    width: 10mm;
+    border-top: 0.3mm solid #777;
+  }
+
+  .info {
+    font-size: 4mm;
+    line-height: 1.6;
+    margin-bottom: 5mm;
+  }
+
+  .divider {
+    border: 0;
+    border-top: 0.35mm solid black;
+    margin: 4mm 0;
+  }
+
+  .vehicle {
+    font-size: 4.8mm;
+    line-height: 1.35;
+  }
+
+  .label {
+    font-weight: 700;
+    font-size: 4.3mm;
+    margin-top: 2mm;
+  }
+
+  .value {
+    margin-top: 0.5mm;
+  }
+
+  .items {
+    margin: 4mm 0;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4mm;
+    font-size: 4.7mm;
+    margin: 3mm 0;
+  }
+
+  .item-name {
+    flex: 1;
+  }
+
+  .item-price {
+    white-space: nowrap;
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    gap: 4mm;
+    align-items: center;
+    font-size: 6mm;
+    font-weight: 700;
+    margin: 6mm 0;
+  }
+
+  .payment {
+    font-size: 4.8mm;
+    margin-top: 7mm;
+  }
+
+  .key-message {
+    margin-top: 25mm;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .arabic {
+    direction: rtl;
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 5.5mm;
+    line-height: 1.35;
+  }
+
+  .english {
+    font-size: 5.5mm;
+    line-height: 1.25;
+    margin-top: 3mm;
+  }
+
+  .thanks {
+    text-align: center;
+    font-size: 4.5mm;
+    margin-top: 22mm;
+    margin-bottom: 3mm;
+  }
+
+  .thanks strong {
+    font-weight: 700;
+  }
+
+  .print-button {
+    width: 100%;
+    border: none;
+    background: black;
+    color: white;
+    font-size: 5mm;
+    font-weight: 700;
+    padding: 4mm;
+    cursor: pointer;
+    margin-top: 8mm;
+  }
+
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+
+  @media print {
+    html, body {
+      width: 80mm;
+      margin: 0;
+      padding: 0;
+    }
+
+    .receipt {
+      width: 80mm;
+    }
+
+    .print-button {
+      display: none !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="receipt">
+
+  <div class="logo">
+    <div class="prime">PRIME</div>
+
+    <div class="logo-sub">
+      <span class="logo-line"></span>
+      <div class="carwash">CAR WASH</div>
+      <span class="logo-line"></span>
+    </div>
+  </div>
+
+  <div class="info">
+    <div>Receipt #: <span id="receipt">000184</span></div>
+    <div>
+      Date: <span id="date">23/09/2026</span>
+      Time: <span id="time">18:42</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="vehicle">
+    <div class="label">CAR</div>
+    <div class="value" id="car">Mercedes-Benz</div>
+
+    <div class="label">PLATE</div>
+    <div class="value" id="plate">36-38949</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="items" id="items"></div>
+
+  <hr class="divider">
+
+  <div class="total">
+    <span>TOTAL</span>
+    <span><span id="total">8.00</span> JOD</span>
+  </div>
+
+  <div class="payment">
+    Payment: <span id="payment">Cash</span>
+  </div>
+
+  <div class="key-message">
+    <div class="arabic">
+      يرجى إبراز هذا الإيصال عند استلام المفتاح
+    </div>
+
+    <div class="english">
+      Please present this receipt to<br>
+      collect your key
+    </div>
+  </div>
+
+  <div class="thanks">
+    Thank you for choosing <strong>PRIME</strong>
+  </div>
+
+  <button class="print-button" onclick="window.print()">
+    PRINT RECEIPT
+  </button>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  const get = (name, fallback = "") => {
+    const value = params.get(name);
+    return value !== null && value !== "" ? value : fallback;
+  };
+
+  document.getElementById("receipt").textContent =
+    get("receipt", "000184");
+
+  document.getElementById("date").textContent =
+    get("date", "23/09/2026");
+
+  document.getElementById("time").textContent =
+    get("time", "18:42");
+
+  document.getElementById("car").textContent =
+    get("car", "Mercedes-Benz");
+
+  document.getElementById("plate").textContent =
+    get("plate", "36-38949");
+
+  document.getElementById("payment").textContent =
+    get("payment", "Cash");
+
+  const wash = get("wash", "Regular Wash");
+  const washPrice = Number(get("washPrice", "5"));
+
+  const productsText = get(
+    "products",
+    "Air Freshener|1;Microfiber Cloth|2"
+  );
+
+  const itemsContainer = document.getElementById("items");
+
+  let calculatedTotal = 0;
+
+  function addItem(name, price) {
+    const safePrice = Number(price) || 0;
+    calculatedTotal += safePrice;
+
+    const row = document.createElement("div");
+    row.className = "item";
+
+    const itemName = document.createElement("span");
+    itemName.className = "item-name";
+    itemName.textContent = name;
+
+    const itemPrice = document.createElement("span");
+    itemPrice.className = "item-price";
+    itemPrice.textContent = safePrice.toFixed(2) + " JOD";
+
+    row.appendChild(itemName);
+    row.appendChild(itemPrice);
+
+    itemsContainer.appendChild(row);
+  }
+
+  addItem(wash, washPrice);
+
+  if (productsText) {
+    productsText.split(";").forEach(product => {
+      const parts = product.split("|");
+
+      if (parts.length >= 2 && parts[0].trim() !== "") {
+        addItem(parts[0].trim(), parts[1]);
+      }
+    });
+  }
+
+  const suppliedTotal = params.get("total");
+
+  document.getElementById("total").textContent =
+    suppliedTotal !== null && suppliedTotal !== ""
+      ? Number(suppliedTotal).toFixed(2)
+      : calculatedTotal.toFixed(2);
+</script>
+
+</body>
+</html>
