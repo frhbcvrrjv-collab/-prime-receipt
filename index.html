@@ -11,92 +11,66 @@
     box-sizing: border-box;
   }
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: white;
-    color: black;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
   body {
-    width: 80mm;
-    margin: 0 auto;
+    margin: 0;
+    background: #fff;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   .receipt {
     width: 80mm;
-    padding: 7mm 5mm 6mm 5mm;
+    min-height: 200mm;
+    margin: 0 auto;
+    padding: 5mm 6mm;
     background: white;
   }
 
   .logo {
     text-align: center;
-    margin: 2mm 0 10mm;
+    margin-bottom: 8mm;
   }
 
   .prime {
-    font-size: 13mm;
+    font-size: 15mm;
+    line-height: 0.9;
     font-weight: 700;
-    letter-spacing: 0.8mm;
-    line-height: 1;
+    letter-spacing: 1px;
   }
 
-  .carwash {
-    margin-top: 2mm;
-    font-size: 4.2mm;
-    letter-spacing: 0.2mm;
-  }
-
-  .logo-sub {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3mm;
-  }
-
-  .logo-line {
-    width: 10mm;
-    border-top: 0.3mm solid #777;
-  }
-
-  .info {
+  .car-wash {
+    margin-top: 3mm;
     font-size: 4mm;
-    line-height: 1.6;
-    margin-bottom: 5mm;
+    letter-spacing: 0.5px;
   }
 
-  .divider {
+  .meta {
+    font-size: 3.5mm;
+    line-height: 1.5;
+  }
+
+  hr {
     border: 0;
-    border-top: 0.35mm solid black;
-    margin: 4mm 0;
-  }
-
-  .vehicle {
-    font-size: 4.8mm;
-    line-height: 1.35;
+    border-top: 0.3mm solid #000;
+    margin: 5mm 0;
   }
 
   .label {
+    font-size: 4mm;
     font-weight: 700;
-    font-size: 4.3mm;
-    margin-top: 2mm;
+    margin-bottom: 1mm;
   }
 
   .value {
-    margin-top: 0.5mm;
-  }
-
-  .items {
-    margin: 4mm 0;
+    font-size: 4.5mm;
+    margin-bottom: 3mm;
   }
 
   .item {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     gap: 4mm;
-    font-size: 4.7mm;
+    font-size: 4.2mm;
     margin: 3mm 0;
   }
 
@@ -111,73 +85,60 @@
   .total {
     display: flex;
     justify-content: space-between;
-    gap: 4mm;
-    align-items: center;
-    font-size: 6mm;
+    font-size: 5.5mm;
     font-weight: 700;
-    margin: 6mm 0;
+    margin: 5mm 0;
   }
 
   .payment {
-    font-size: 4.8mm;
-    margin-top: 7mm;
+    font-size: 4.2mm;
+    margin-top: 6mm;
   }
 
-  .key-message {
-    margin-top: 25mm;
+  .pickup {
     text-align: center;
     font-weight: 700;
+    margin-top: 24mm;
+    font-size: 4.5mm;
+    line-height: 1.5;
   }
 
   .arabic {
     direction: rtl;
-    font-family: Arial, Tahoma, sans-serif;
-    font-size: 5.5mm;
-    line-height: 1.35;
-  }
-
-  .english {
-    font-size: 5.5mm;
-    line-height: 1.25;
-    margin-top: 3mm;
+    font-size: 4.5mm;
+    margin-bottom: 3mm;
   }
 
   .thanks {
     text-align: center;
-    font-size: 4.5mm;
-    margin-top: 22mm;
-    margin-bottom: 3mm;
-  }
-
-  .thanks strong {
-    font-weight: 700;
+    margin-top: 18mm;
+    font-size: 4mm;
   }
 
   .print-button {
     width: 100%;
     border: none;
-    background: black;
-    color: white;
-    font-size: 5mm;
+    background: #000;
+    color: #fff;
+    font-size: 4mm;
     font-weight: 700;
     padding: 4mm;
+    margin-top: 10mm;
     cursor: pointer;
-    margin-top: 8mm;
-  }
-
-  @page {
-    size: 80mm auto;
-    margin: 0;
   }
 
   @media print {
-    html, body {
-      width: 80mm;
+    @page {
+      size: 80mm auto;
       margin: 0;
-      padding: 0;
+    }
+
+    body {
+      width: 80mm;
     }
 
     .receipt {
+      margin: 0;
       width: 80mm;
     }
 
@@ -194,53 +155,46 @@
 
   <div class="logo">
     <div class="prime">PRIME</div>
-
-    <div class="logo-sub">
-      <span class="logo-line"></span>
-      <div class="carwash">CAR WASH</div>
-      <span class="logo-line"></span>
-    </div>
+    <div class="car-wash">— &nbsp; CAR WASH &nbsp; —</div>
   </div>
 
-  <div class="info">
-    <div>Receipt #: <span id="receipt">000184</span></div>
+  <div class="meta">
+    <div>Receipt #: <span id="receipt"></span></div>
     <div>
-      Date: <span id="date">23/09/2026</span>
-      Time: <span id="time">18:42</span>
+      Date: <span id="date"></span>
+      &nbsp; Time: <span id="time"></span>
     </div>
   </div>
 
-  <hr class="divider">
+  <hr>
 
-  <div class="vehicle">
-    <div class="label">CAR</div>
-    <div class="value" id="car">Mercedes-Benz</div>
+  <div class="label">CAR</div>
+  <div class="value" id="car"></div>
 
-    <div class="label">PLATE</div>
-    <div class="value" id="plate">36-38949</div>
-  </div>
+  <div class="label">PLATE</div>
+  <div class="value" id="plate"></div>
 
-  <hr class="divider">
+  <hr>
 
-  <div class="items" id="items"></div>
+  <div id="items"></div>
 
-  <hr class="divider">
+  <hr>
 
   <div class="total">
     <span>TOTAL</span>
-    <span><span id="total">8.00</span> JOD</span>
+    <span id="total"></span>
   </div>
 
   <div class="payment">
-    Payment: <span id="payment">Cash</span>
+    Payment: <span id="payment"></span>
   </div>
 
-  <div class="key-message">
+  <div class="pickup">
     <div class="arabic">
       يرجى إبراز هذا الإيصال عند استلام المفتاح
     </div>
 
-    <div class="english">
+    <div>
       Please present this receipt to<br>
       collect your key
     </div>
@@ -259,80 +213,62 @@
 <script>
   const params = new URLSearchParams(window.location.search);
 
-  const get = (name, fallback = "") => {
-    const value = params.get(name);
-    return value !== null && value !== "" ? value : fallback;
-  };
+  function get(name, fallback = "") {
+    return params.get(name) || fallback;
+  }
 
-  document.getElementById("receipt").textContent =
-    get("receipt", "000184");
+  function safeText(id, value) {
+    document.getElementById(id).textContent = value;
+  }
 
-  document.getElementById("date").textContent =
-    get("date", "23/09/2026");
-
-  document.getElementById("time").textContent =
-    get("time", "18:42");
-
-  document.getElementById("car").textContent =
-    get("car", "Mercedes-Benz");
-
-  document.getElementById("plate").textContent =
-    get("plate", "36-38949");
-
-  document.getElementById("payment").textContent =
-    get("payment", "Cash");
-
-  const wash = get("wash", "Regular Wash");
-  const washPrice = Number(get("washPrice", "5"));
-
-  const productsText = get(
-    "products",
-    "Air Freshener|1;Microfiber Cloth|2"
-  );
+  safeText("receipt", get("receipt", "000000"));
+  safeText("date", get("date", ""));
+  safeText("time", get("time", ""));
+  safeText("car", get("car", ""));
+  safeText("plate", get("plate", ""));
+  safeText("payment", get("payment", ""));
+  
+  const total = get("total", "0.00");
+  safeText("total", total + " JOD");
 
   const itemsContainer = document.getElementById("items");
 
-  let calculatedTotal = 0;
+  /*
+    ITEMS FORMAT:
 
-  function addItem(name, price) {
-    const safePrice = Number(price) || 0;
-    calculatedTotal += safePrice;
+    Wash Name|5.00;Air Freshener|1.00;Microfiber Cloth|2.00
+  */
 
-    const row = document.createElement("div");
-    row.className = "item";
+  const itemsString = get("items", "");
 
-    const itemName = document.createElement("span");
-    itemName.className = "item-name";
-    itemName.textContent = name;
+  if (itemsString) {
+    const items = itemsString.split(";");
 
-    const itemPrice = document.createElement("span");
-    itemPrice.className = "item-price";
-    itemPrice.textContent = safePrice.toFixed(2) + " JOD";
+    items.forEach(item => {
+      const parts = item.split("|");
 
-    row.appendChild(itemName);
-    row.appendChild(itemPrice);
+      if (parts.length >= 2) {
+        const name = parts[0];
+        const price = parts[1];
 
-    itemsContainer.appendChild(row);
-  }
+        const row = document.createElement("div");
+        row.className = "item";
 
-  addItem(wash, washPrice);
+        const itemName = document.createElement("span");
+        itemName.className = "item-name";
+        itemName.textContent = name;
 
-  if (productsText) {
-    productsText.split(";").forEach(product => {
-      const parts = product.split("|");
+        const itemPrice = document.createElement("span");
+        itemPrice.className = "item-price";
+        itemPrice.textContent = price + " JOD";
 
-      if (parts.length >= 2 && parts[0].trim() !== "") {
-        addItem(parts[0].trim(), parts[1]);
+        row.appendChild(itemName);
+        row.appendChild(itemPrice);
+
+        itemsContainer.appendChild(row);
       }
     });
   }
-
-  const suppliedTotal = params.get("total");
-
-  document.getElementById("total").textContent =
-    suppliedTotal !== null && suppliedTotal !== ""
-      ? Number(suppliedTotal).toFixed(2)
-      : calculatedTotal.toFixed(2);
 </script>
 
 </body>
